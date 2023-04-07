@@ -9,80 +9,69 @@ class ApiService {
  
 
     async getMostPopularMovies() {
-        let movies =[];
         try {
-            await fetch(`${this.baseUrl}${this.mostPoularUrl}?api_key=${this.apiKey}`)
-            .then(response => response.json())
-            .then(data => {
-                movies = data.results;
-            });
-        } catch(error) {
-            console.log(`fetch error: ${error}`)
-        };
-        return(movies);
+    const response = await fetch(`${this.baseUrl}${this.mostPoularUrl}?api_key=${this.apiKey}`);
+    const data = await response.json();
+    return data.results;
+  } catch (error) {
+    console.log(`fetch error: ${error}`);
+    throw error;
+  }
     };
 
     async getMoviesByKeyWord(keyWord) {
-        let moviesByKeyWord =null;
         try {
-            await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${this.apiKey}&query=${keyWord}`)
-            .then(response => response.json())
-            .then(data => moviesByKeyWord=data);
-        } catch(error) {
-            console.log(`fetch error: ${error}`)
-        };
-        console.log(moviesByKeyWord);
-        return(moviesByKeyWord);
+        const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${this.apiKey}&query=${keyWord}`);
+        const data = await response.json();
+        return data.results;
+    } catch (error) {
+        console.log(`fetch error: ${error}`);
+        throw error;
+    }
     };
 
     async getWholeMovieInformation(id) {
-        let movieInfo = null;
-        try {
-            await fetch(`${this.baseUrl}${this.wholeMovieInformationUrl}${id}?api_key=${this.apiKey}`)
-            .then(response => response.json())
-            .then(data => movieInfo=data)
-
-        } catch(error) {
-            console.log(error)
-        }
-        return (movieInfo);
-    };
+  try {
+    const response = await fetch(`${this.baseUrl}${this.wholeMovieInformationUrl}${id}?api_key=${this.apiKey}`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
 
     async getMovieCast(id) {
-        let movieCast = null;
-        try {
-            await fetch(`${this.baseUrl}${this.wholeMovieInformationUrl}${id}?api_key=${this.apiKey}`)
-            .then(response => response.json())
-            .then(data => movieCast=data)
-
-        } catch(error) {
-            console.log(error)
-        }
-        return (movieCast);
-    };
+    try {
+        const response = await fetch(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=${this.apiKey}&language=en-US`);
+        const data = await response.json();
+        return data.cast;
+    } catch (error) {
+        console.log(`fetch error: ${error}`);
+        throw error;
+    }
+};
 
     async getMovieReviews(id) {
-        let movieReviews = null;
-        try {
-            await fetch(`${this.baseUrl}/movie/${id}/reviews?api_key=${this.apiKey}`)
-            .then(response => response.json())
-            .then(data => movieReviews=data)
-        } catch(error) {
-            console.log(error)
-        }
-        return (movieReviews);
-    };
+  try {
+    const response = await fetch(`${this.baseUrl}/movie/${id}/reviews?api_key=${this.apiKey}`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
 
-    async getMovieActors(id) {
-        let cast = null;
-        try {
-            await fetch(`${this.baseUrl}/movie/${id}/credits?api_key=${this.apiKey}`)
-            .then(response => response.json())
-            .then(data => cast=data)
-        } catch(error) {
-            console.log(error)
-        }
-        return (cast);
+   async getMovieActors(id) {
+    try {
+        const response = await fetch(`${this.baseUrl}/movie/${id}/credits?api_key=${this.apiKey}`);
+        const data = await response.json();
+        return data.cast;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
     };
 };
 

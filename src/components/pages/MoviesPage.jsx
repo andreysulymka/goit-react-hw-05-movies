@@ -17,16 +17,17 @@ export default function MoviePage() {
         if (query.trim() === '') {
             return;
         };
-        apiService.getMoviesByKeyWord(query).then(
-            response => {
-                if(response.results.length===0) {
+        apiService.getMoviesByKeyWord(query)
+            .then(results => {
+                console.log(results);
+                if(results.length === 0) {
                     setemptyRequest(true);
                     setEmptySearch(false);
                     Notify.failure(`There are no ${query} movies`);
                     return;
                 };
-                const foundMovies = response.results;
-                setMovies(foundMovies);
+                
+                setMovies(results);
                 setEmptySearch(false);
                 setemptyRequest(false);
                 }
@@ -53,7 +54,7 @@ export default function MoviePage() {
             <InputBar handleSearchSubmit={searchMovieByKeyWord}/>
             {emptySearch && <p>Search request shouldn't be empty</p>}
             {emptyRequest && <p>There are no ${query} movies</p>}
-            {movies && <MoviesList movies={movies} goBack={`/movies?query=${query}`}/>}
+            {movies && <MoviesList movies={movies}/>}
         </>
     );
 };

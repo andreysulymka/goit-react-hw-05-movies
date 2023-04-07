@@ -24,7 +24,7 @@ export default function MovieDetails() {
 
     const navigate = useNavigate();
     const location = useRef(useLocation()); 
-    const goBackLink = location.current?.state?.from || null;
+    const goBackLink = location.current?.state?.from || "/";
 
     const goBack = () => {
         navigate(goBackLink);
