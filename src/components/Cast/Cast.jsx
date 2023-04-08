@@ -11,7 +11,7 @@ export default function Cast () {
     useEffect(() => {
         apiService.getMovieActors(movieId)
         .then( response => {
-          const actors = response.cast.map(actor => {
+          const actors = response.map(actor => {
             return({name: actor.name, character: actor.character, id: actor.credit_id, photo: actor.profile_path})
           })
           setCast(actors);

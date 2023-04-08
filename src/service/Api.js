@@ -21,7 +21,7 @@ class ApiService {
 
     async getMoviesByKeyWord(keyWord) {
         try {
-        const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${this.apiKey}&query=${keyWord}`);
+        const response = await fetch(`${this.baseUrl}/search/movie?api_key=${this.apiKey}&query=${keyWord}`);
         const data = await response.json();
         return data.results;
     } catch (error) {
@@ -43,7 +43,7 @@ class ApiService {
 
     async getMovieCast(id) {
     try {
-        const response = await fetch(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=${this.apiKey}&language=en-US`);
+        const response = await fetch(`${this.baseUrl}/movie/${id}/credits?api_key=${this.apiKey}&language=en-US`);
         const data = await response.json();
         return data.cast;
     } catch (error) {
